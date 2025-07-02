@@ -9,9 +9,56 @@ You can pick the first four elements or can pick the last four elements or can p
 
 // BRUTE FORCE: Does not work for large input values. Error-> Time Limit exceeded. 
 
+// import java.util.*;
+// public class PickFromBothSides {
+//     public static void main(String[] args) {
+//          Scanner sc = new Scanner(System.in);
+
+//         System.out.print("Enter the number of elements in the list A: ");
+//         int n = sc.nextInt();
+
+//         ArrayList<Integer> A = new ArrayList<>();
+//         System.out.println("Enter " + n + " integers:");
+//         for (int i = 0; i < n; i++) {
+//             A.add(sc.nextInt());
+//         }
+
+//         System.out.print("Enter the number of elements to pick (B): ");
+//         int B = sc.nextInt();
+
+//         PickFromBothSides sol = new PickFromBothSides();
+//         int result = sol.solve(A, B);
+
+//         System.out.println("Maximum sum of " + B + " picked elements: " + result);
+
+//         sc.close();
+//     }
+//     public int solve(ArrayList<Integer> A, int B) {
+//         int cs , ms = Integer.MIN_VALUE;
+//         int N = A.size();
+        
+//         for(int k = 0; k<=B ; k++)
+//         {
+//             cs=0;
+//             for(int i = 0; i<k ; i++)
+//             {
+//                 cs += A.get(i);
+//             }
+//             for(int i = 0; i<(B-k) ; i++)
+//             {
+//                 cs += A.get(N-1-i);
+//             }
+//             ms = Math.max(cs,ms);
+//         }
+       
+//         return ms;
+//     }
+// }
+
+// OPTIMIZED:
 import java.util.*;
 public class PickFromBothSides {
-    public static void main(String[] args) {
+        public static void main(String[] args) {
          Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter the number of elements in the list A: ");
@@ -34,25 +81,22 @@ public class PickFromBothSides {
         sc.close();
     }
     public int solve(ArrayList<Integer> A, int B) {
-        int cs , ms = Integer.MIN_VALUE;
+        int cs = 0 , ms = Integer.MIN_VALUE;
         int N = A.size();
         
-        for(int k = 0; k<=B ; k++)
+        for(int i = 0; i<B ; i++)
         {
-            cs=0;
-            for(int i = 0; i<k ; i++)
-            {
-                cs += A.get(i);
-            }
-            for(int i = 0; i<(B-k) ; i++)
-            {
-                cs += A.get(N-1-i);
-            }
+           cs += A.get(i); 
+        }
+        
+        ms = cs;
+        
+        for(int i = 1; i<=B ; i++)
+        {
+            cs = cs - A.get(B-i) + A.get(N-i);
             ms = Math.max(cs,ms);
         }
        
         return ms;
     }
 }
-
-// 
